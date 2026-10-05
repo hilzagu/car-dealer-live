@@ -6,6 +6,7 @@ import { Home, Inventory } from './pages/Catalog.jsx'
 import VehicleDetail from './pages/VehicleDetail.jsx'
 import { Cart, Checkout, Success } from './pages/Checkout.jsx'
 import { Dashboard, Admin } from './pages/Account.jsx'
+import { envMissing } from './lib/supabaseClient.js'
 
 export default function App() {
   return (
@@ -13,6 +14,11 @@ export default function App() {
       <AuthProvider>
         <CartProvider>
           <Navbar />
+          {envMissing && (
+            <p style={{ background: '#fff3cd', padding: 12, margin: 0, textAlign: 'center' }}>
+              Supabase keys missing on this deployment — set VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY in Vercel env vars and redeploy.
+            </p>
+          )}
           <main className="container">
             <Routes>
               <Route path="/" element={<Home />} />
